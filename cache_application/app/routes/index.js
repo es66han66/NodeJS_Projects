@@ -1,7 +1,7 @@
 'use strict'
 
-const bankAccountRouter = require('./bankAccount')
+const testCacheRouter = require('./testCache')
 
 module.exports = app => {
-  app.use('/bank-account', bankAccountRouter)
+  app.use('/testCache', testCacheRouter)
 }
