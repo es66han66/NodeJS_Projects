@@ -7,13 +7,18 @@ console.log(`worker pid=${process.pid}`);
 
 app.get("/heavy", (req, res) => {
   console.log("hit in heavy");
-  new Promise((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, 3000);
-  }).then(() => {
-    res.send("CPU heavy task is done now");
-  });
+  const future = Date.now()+3000;
+  while(Date.now()<future){
+
+  }
+  // new Promise((resolve) => {
+  //   setTimeout(() => {
+  //     resolve();
+  //   }, 3000);
+  // }).then(() => {
+  //   res.send("CPU heavy task is done now");
+  // });
+  res.send("CPU heavy task is done now");
 });
 
 app.listen(port, () => {
