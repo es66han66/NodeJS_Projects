@@ -1,22 +1,52 @@
-import cluster from "cluster";
-import os from "os";
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-const __dirname = dirname(fileURLToPath(import.meta.url));
+const express = require("express");
+const port = 3001;
+const cluster = require("cluster");
+const totalCPUs = require("os").cpus().length;
+let countRequest = 0;
+if (cluster.isMaster) {
+  console.log(`Number of CPUs is ${totalCPUs}`);
+  console.log(`Master ${process.pid} is running`);
 
-const cpuCount = os.cpus().length;
+  // Fork workers.
+  for (let i = 0; i < totalCPUs; i++) {
+    cluster.fork();
+  }
 
-console.log(`The total number of CPUs is ${cpuCount}`);
-console.log(`Primary pid=${process.pid}`);
-cluster.setupPrimary({
-  exec: __dirname + "/index.js",
-});
+  cluster.on("exit", (worker, code, signal) => {
+    console.log(`worker ${worker.process.pid} died`);
+    console.log("Let's fork another worker!");
+    cluster.fork();
+  });
 
-for (let i = 0; i < cpuCount; i++) {
-  cluster.fork();
+  cluster.on("message", () => {
+    countRequest++;
+    console.log(countRequest);
+  });
+} else {
+  start();
 }
-cluster.on("exit", (worker, code, signal) => {
-  console.log(`worker ${worker.process.pid} has been killed`);
-  console.log("Starting another worker");
-  cluster.fork();
-});
+
+function start() {
+  const app = express();
+  console.log(`Worker ${process.pid} started`);
+
+  app.get("/", function (req, res) {
+    console.time("withclusterApi");
+    const base = 8;
+    let result = 0;
+    console.time("start");
+    for (let i = Math.pow(base, 7); i >= 0; i--) {
+      result += i + Math.pow(i, 10);
+    }
+    console.timeEnd("withclusterApi");
+
+    console.log(`Result IS ${result} - ON PROCESS ${process.pid}`);
+    res.send(`Result number is ${result}`);
+    console.timeEnd("start");
+    process.send("I am done");
+  });
+
+  app.listen(port, () => {
+    console.log(`App listening on port ${port}`);
+  });
+}

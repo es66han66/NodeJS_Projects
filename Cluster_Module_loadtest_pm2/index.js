@@ -1,24 +1,25 @@
-import express from "express";
-
+const express = require("express");
 const port = 3000;
+
 const app = express();
+console.log(`Worker Number ${process.pid} started`);
 
-console.log(`worker pid=${process.pid}`);
-
-app.get("/heavy", (req, res) => {
-  console.log("hit in heavy");
-  const future = Date.now()+3000;
-  while(Date.now()<future){
-
+let countRequest = 0;
+app.get("/", function (req, res) {
+  console.time("noclusterApi");
+  const base = 8;
+  let result = 0;
+  console.time("start");
+  for (let i = Math.pow(base, 7); i >= 0; i--) {
+    result += i + Math.pow(i, 10);
   }
-  // new Promise((resolve) => {
-  //   setTimeout(() => {
-  //     resolve();
-  //   }, 3000);
-  // }).then(() => {
-  //   res.send("CPU heavy task is done now");
-  // });
-  res.send("CPU heavy task is done now");
+  console.timeEnd("noclusterApi");
+
+  console.log(`RESULT IS ${result} - ON PROCESS ${process.pid}`);
+  res.send(`Result number is ${result}`);
+  console.timeEnd("start");
+  countRequest++;
+  console.log(countRequest);
 });
 
 app.listen(port, () => {
