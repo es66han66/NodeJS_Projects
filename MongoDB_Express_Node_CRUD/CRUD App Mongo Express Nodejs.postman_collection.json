@@ -1,0 +1,124 @@
+{
+	"info": {
+		"_postman_id": "98aa47be-4adb-45c1-898a-25c16cf24a91",
+		"name": "CRUD App Mongo Express Nodejs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Eshan Gupta\",\r\n    \"phone\": 7017595690\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/createuser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"createuser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"phone\": 7017595691\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/updateUser/:userId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"updateUser",
+						":userId"
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": "47316087-aa6c-4a8d-802d-e52ffb35644a"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/deleteUser/:userId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"deleteUser",
+						":userId"
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": "47316087-aa6c-4a8d-802d-e52ffb35644a"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/getUser/:userId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"getUser",
+						":userId"
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": "47316087-aa6c-4a8d-802d-e52ffb35644a"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
