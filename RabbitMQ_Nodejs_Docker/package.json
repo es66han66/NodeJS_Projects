@@ -1,0 +1,16 @@
+{
+  "name": "rabbitmq_nodejs_docker",
+  "version": "1.0.0",
+  "description": "1- Run ```docker-compose up -d``` to start RMQ instance, verify in localhost:15672.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.10.3",
+    "dotenv": "^16.0.3"
+  },
+  "type": "module"
+}
