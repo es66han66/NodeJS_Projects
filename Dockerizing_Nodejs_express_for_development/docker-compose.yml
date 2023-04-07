@@ -1,0 +1,16 @@
+version: '3'
+services:
+  node-dockerized:
+    environment:
+      - NODE_ENV=development
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./:/usr/src/app
+    container_name: node-dockerized
+    expose:
+      - '8000'
+    ports:
+      - '8000:8000'
+    command: npm run start
