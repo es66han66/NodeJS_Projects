@@ -1,0 +1,1 @@
+Watch is being used as concurrency solution in this part, in create bid, function name createBid
