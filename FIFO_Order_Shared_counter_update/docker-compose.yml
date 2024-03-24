@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  rabbitmq:
+    image: rabbitmq:3.9.13-management-alpine
+    container_name: myrabbit
+    environment:
+      - "RABBITMQ_DEFAULT_PASS=password"
+      - "RABBITMQ_DEFAULT_USER=username"
+    ports:
+      - 15672:15672
+      - 5672:5672
+    # networks:
+    #   - mynetwork
+  redis:
+    image: redis
+    container_name: myredis
+    ports:
+      - 6379:6379
+
+# networks:
+#   mynetwork:
+#     driver: bridge
