@@ -1,17 +1,17 @@
-const debugNamespaces = (process.env.DEBUG || "*")
+const debugLogTypes = (process.env.DEBUG || "*")
   .split(",")
-  .map((ns) => ns.trim());
+  .map((ele) => ele.trim());
 
-const logger = (namespace) => {
+const logger = (logType) => {
   const log = (mode, message) => {
-    const logMessage = `${new Date().toISOString()} ${mode} [${namespace}]: ${message}`;
+    const logMessage = `${new Date().toISOString()} ${mode} [${logType}]: ${message}`;
 
     if (mode === "error") {
       console.error(logMessage);
       return;
     }
 
-    if (debugNamespaces.includes("*") || debugNamespaces.includes(namespace)) {
+    if (debugLogTypes.includes("*") || debugLogTypes.includes(logType)) {
       console[mode](logMessage);
     }
   };

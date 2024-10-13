@@ -8,7 +8,7 @@ const port = 8000
 const host = '127.0.0.1'
 
 server.on('connection', socket => {
-  logger.log('CLient connected')
+  logger.log('Client connected')
   socket.on('data', data => {
     const reqData = data.toString()
     logger.log(reqData)
