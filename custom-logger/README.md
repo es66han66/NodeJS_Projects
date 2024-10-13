@@ -13,3 +13,11 @@ To use this custom logger in your project, simply copy the `logger.js` file into
    ```javascript
    const logger = require('./logger');
    ```
+
+2. **Create a logger instance for a specific log type:**
+
+    ```javascript
+    const appLogger = logger('app');
+    const dbLogger = logger('database');
+    ```
+
